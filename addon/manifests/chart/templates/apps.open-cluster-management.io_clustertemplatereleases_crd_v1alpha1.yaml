@@ -1,0 +1,56 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: managedclustersetquotas.apps.open-cluster-management.io
+spec:
+  group: apps.open-cluster-management.io
+  names:
+    kind: ManagedClusterSetQuota
+    listKind: ManagedClusterSetQuotaList
+    plural: managedclustersetquotas
+    shortNames:
+      - mclsetquota
+      - mclsetquotas
+    singular: managedclustersetquota
+  scope: Cluster
+  preserveUnknownFields: false
+  versions:
+    - additionalPrinterColumns:
+      name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            apiVersion:
+              description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+              type: string
+            kind:
+              description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              type: string
+            metadata:
+              type: object
+            spec:
+              type: object
+              properties:
+                quota:
+                  type: object
+                  additionalProperties:
+                    type: integer
+            status:
+              description: Status represents the current status of the ManagedClusterSet
+              type: object
+              properties:
+                quota:
+                  type: object
+                  additionalProperties:
+                    type: integer
+      served: true
+      storage: true
+      subresources:
+        status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

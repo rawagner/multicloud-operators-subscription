@@ -14,9 +14,12 @@
 
 package apis
 
-import v1alpha1 "open-cluster-management.io/multicloud-operators-subscription/pkg/apis/apps/v1alpha1"
+import (
+	clustertemplaterelease "open-cluster-management.io/multicloud-operators-subscription/pkg/apis/apps/clustertemplaterelease/v1alpha1"
+	v1alpha1 "open-cluster-management.io/multicloud-operators-subscription/pkg/apis/apps/v1alpha1"
+)
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
-	AddToSchemes = append(AddToSchemes, v1alpha1.SchemeBuilder.AddToScheme)
+	AddToSchemes = append(AddToSchemes, v1alpha1.SchemeBuilder.AddToScheme, clustertemplaterelease.SchemeBuilder.AddToScheme)
 }
