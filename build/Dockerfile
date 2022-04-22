@@ -1,4 +1,4 @@
-FROM registry.ci.openshift.org/stolostron/builder:go1.17-linux AS plugin-builder
+FROM quay.io/bitnami/golang:1.17 AS plugin-builder
 ENV POLICY_GENERATOR_TAG=v1.6.0
 
 WORKDIR /policy-generator

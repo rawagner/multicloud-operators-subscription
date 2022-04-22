@@ -1,0 +1,48 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: clustertemplatereleases.cluster.open-cluster-management.io
+spec:
+  group: cluster.open-cluster-management.io
+  names:
+    kind: ClusterTemplateRelease
+    listKind:ClusterTemplateReleaseList
+    plural: clustertemplatereleases
+    shortNames:
+      - ctrelease
+      - ctreleases
+    singular: clustertemplaterelease
+  scope: Namespaced
+  preserveUnknownFields: false
+  versions:
+    - additionalPrinterColumns:
+      name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            apiVersion:
+              description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+              type: string
+            kind:
+              description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: Spec specifies cluster template deployment
+              type: object
+              properties:
+                helmReleaseURL:
+                  description: Represents helm chart release URL
+                  type: string
+      served: true
+      storage: true
+      subresources:
+        status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
