@@ -31,6 +31,7 @@ require (
 	k8s.io/apimachinery v0.23.3
 	k8s.io/cli-runtime v0.23.3
 	k8s.io/client-go v12.0.0+incompatible
+	k8s.io/code-generator v0.23.6
 	k8s.io/klog v1.0.0
 	k8s.io/klog/v2 v2.40.1
 	open-cluster-management.io/addon-framework v0.3.0
@@ -174,6 +175,7 @@ require (
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	github.com/xlab/treeprint v1.1.0 // indirect
 	go.starlark.net v0.0.0-20220203230714-bb14e151c28f // indirect
+	golang.org/x/mod v0.5.1 // indirect
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 	golang.org/x/sys v0.0.0-20220209214540-3681064d5158 // indirect
@@ -181,6 +183,7 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20211116232009-f0f3c7e86c11 // indirect
 	golang.org/x/tools v0.1.9 // indirect
+	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.2.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20220208230804-65c12eb4c068 // indirect
@@ -194,6 +197,7 @@ require (
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 	k8s.io/apiserver v0.23.3 // indirect
 	k8s.io/component-base v0.23.3 // indirect
+	k8s.io/gengo v0.0.0-20210813121822-485abfe95c7c // indirect
 	k8s.io/kube-aggregator v0.23.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20220124234850-424119656bbf // indirect
 	k8s.io/kubectl v0.23.3 // indirect

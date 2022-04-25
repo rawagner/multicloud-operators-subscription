@@ -44,6 +44,9 @@ import (
 	"open-cluster-management.io/multicloud-operators-subscription/pkg/synchronizer"
 	"open-cluster-management.io/multicloud-operators-subscription/pkg/utils"
 	"open-cluster-management.io/multicloud-operators-subscription/pkg/webhook"
+
+	helmClient "open-cluster-management.io/multicloud-operators-subscription/pkg/client/clientset/versioned"
+	helmInformer "open-cluster-management.io/multicloud-operators-subscription/pkg/client/informers/externalversions"
 )
 
 // Change below variables to serve metrics on different host or port.
@@ -292,8 +295,15 @@ func setupStandalone(mgr manager.Manager, hubconfig *rest.Config, id *types.Name
 		return err
 	}
 
+	helmReleaseClient, err := helmClient.NewForConfig(mgr.GetConfig())
+	if err != nil {
+		return err
+	}
+
+	helmReleaseInformer := helmInformer.NewSharedInformerFactory(helmReleaseClient, 10*time.Minute)
+
 	// Setup all Controllers
-	if err := controller.AddToManager(mgr, hubconfig, id, isHub, standalone); err != nil {
+	if err := controller.AddToManager(mgr, hubconfig, id, isHub, standalone, helmReleaseInformer, helmReleaseClient); err != nil {
 		klog.Error("Failed to initialize controller with error:", err)
 
 		return err

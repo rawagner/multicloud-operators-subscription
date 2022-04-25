@@ -19,6 +19,9 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/klog/v2"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
+
+	appsClient "open-cluster-management.io/multicloud-operators-subscription/pkg/client/clientset/versioned"
+	helmInformer "open-cluster-management.io/multicloud-operators-subscription/pkg/client/informers/externalversions"
 )
 
 // AddToManagerMCMFuncs is a list of functions to add all MCM Controllers (with config to hub) to the Manager
@@ -36,10 +39,18 @@ var AddHubToManagerFuncs []func(manager.Manager) error
 // AddAppSubSummaryToManagerFuncs is a list of functions to add all AppSubSummary Controllers to the Manager
 var AddAppSubSummaryToManagerFuncs []func(manager.Manager, int) error
 
+var AddClusterTemplateToManagerFuncs []func(manager manager.Manager, helmReleaseInformer helmInformer.SharedInformerFactory, appsClient appsClient.Clientset) error
+
 // AddToManager adds all Controllers to the Manager
-func AddToManager(m manager.Manager, cfg *rest.Config, syncid *types.NamespacedName, hub, standalone bool) error {
+func AddToManager(m manager.Manager, cfg *rest.Config, syncid *types.NamespacedName, hub, standalone bool, helmReleaseInformer helmInformer.SharedInformerFactory, appsClient appsClient.Clientset) error {
 	for _, f := range AddToManagerFuncs {
 		if err := f(m); err != nil {
+			return err
+		}
+	}
+
+	for _, f := range AddClusterTemplateToManagerFuncs {
+		if err := f(m, helmReleaseInformer, appsClient); err != nil {
 			return err
 		}
 	}

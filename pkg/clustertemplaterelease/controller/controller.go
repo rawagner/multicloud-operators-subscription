@@ -18,15 +18,18 @@ package controller
 
 import (
 	"sigs.k8s.io/controller-runtime/pkg/manager"
+
+	helmClient "open-cluster-management.io/multicloud-operators-subscription/pkg/client/clientset/versioned/typed/helmrelease/v1"
+	helmLister "open-cluster-management.io/multicloud-operators-subscription/pkg/client/listers/helmrelease/v1"
 )
 
 // AddToManagerFuncs is a list of functions to add all Controllers to the Manager
-var AddToManagerFuncs []func(manager.Manager) error
+var AddToManagerFuncs []func(manager manager.Manager, helmReleaseLister helmLister.HelmReleaseLister, helmReleaseClient helmClient.HelmReleaseInterface) error
 
 // AddToManager adds all Controllers to the Manager
-func AddToManager(m manager.Manager) error {
+func AddToManager(m manager.Manager, helmReleaseLister helmLister.HelmReleaseLister, helmReleaseClient helmClient.HelmReleaseInterface) error {
 	for _, f := range AddToManagerFuncs {
-		if err := f(m); err != nil {
+		if err := f(m, helmReleaseLister, helmReleaseClient); err != nil {
 			return err
 		}
 	}
